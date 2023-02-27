@@ -1,6 +1,6 @@
 import useFetch from "react-fetch-hook";
 
-
+import Card from "./components/Card" ;
 import { useState } from "react";
 
 import './style.css'
@@ -26,22 +26,21 @@ export default function App() {
     }
   };
 
-  const newRick =
-    data?.results.map((item) => (
-      <div className="characters" key={item.id}>
-        <li>
-          <img src={item.image} />
-          {item.name} {item.gender}
-        </li>
-      </div>
+    const newRick = data?.results.filter((item) => item.name.toLowerCase().includes(searchName.toLowerCase())).map((item) => (
+      <Card item={item} />
+      
+      // <div className="characters" key={item.id}>
+      //   <li>
+      //     <img src={item.image} />
+      //     {item.name} {item.gender}
+      //   </li>
+      // </div>
     ));
-
-
-
-
 
   return (
     <>
+    <h2>RICK AND MORTY</h2>
+      <input type="text" placeholder="search by name" value={searchName} onChange={(e) => setSearchName(e.target.value)} />
       <ul>{newRick}</ul>
       <button className="previous-page" onClick={handleClickPrevious}>
         Previous page
